@@ -1,0 +1,9 @@
+class {
+    query function select(sql) {
+        return queryExecute(sql);
+    }
+
+    function insert(sql) {
+        queryExecute(sql);
+    }
+} 

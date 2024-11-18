@@ -1,0 +1,14 @@
+{
+    "cflint.enabled": true,
+    "cflint.jarPath": "/var/www/boxlang/boxlang-docker/cflint/CFLint-1.5.0-all.jar",
+    "cflint.javaPath": "/usr/bin/java",
+    "cflint.ignoreInfo": true,
+    "cflint.ignoreWarnings": true,
+    "cflint.altConfigFile.path": "/var/www/boxlang/boxlang-docker/cflint",
+    "cflint.outputDirectory": "/var/www/boxlang/boxlang-docker/cflint",
+    "evenBetterToml.formatter.crlf": true,
+    "boxlang.java.javaHome": "/usr/bin/java",
+    "cfml.boxlang.jarpath": "/var/www/boxlang/boxlang-docker/boxlang.jar",
+    "cfml.boxlang.miniserverjarpath": "/var/www/boxlang/boxlang-docker/boxlang-miniserver.jar",
+    "cfml.boxlang.webPort": 8899
+}

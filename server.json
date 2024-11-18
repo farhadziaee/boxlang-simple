@@ -1,0 +1,6 @@
+{
+    "JVM": {
+        "args": "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8080",
+        "javaVersion": "openjdk21_jdk"
+    }
+}

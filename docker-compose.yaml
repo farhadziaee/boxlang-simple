@@ -1,0 +1,23 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/app
+    environment:
+      - BOXLANG_PORT=8080
+      - BOXLANG_HOST=0.0.0.0
+      - BOXLANG_DEBUG=true
+      - BOXLANG_MODULES=bx-compat,bx-esapi,bx-mysql
+
+  mysql:
+    platform: linux/x86_64 # Needed for Mac's on the M1 chip
+    image: mysql:5
+    environment:
+      MYSQL_DATABASE: toomba
+      MYSQL_ROOT_PASSWORD: toomba
+    ports:
+      - "3306:3306"
+
+
