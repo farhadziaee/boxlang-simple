@@ -4,6 +4,8 @@
 ```sh
 docker compose up --build
 ```
+* URL: [http://localhost:8181](http://localhost:8181)
+* Demo: [https://boxlang.uproid.com](https://boxlang.uproid.com)
 
 ### Nginx
 * Check this file `./nginx.conf`
@@ -22,4 +24,4 @@ docker compose up --build
 * `./classes/core/WebRoute.bx`
 * `./app/router.bx`
   
-Made with ♥️ Toomba, Farhad Ziaee 
+Made with ♥️ Farhad Ziaee 
