@@ -1,0 +1,69 @@
+import classes.core.*;
+import app.controllers.HomeController;
+
+class {
+    property name="rq" type="WebRequest";
+
+    function init() {}
+
+    function route(){
+        var path = CGI.query_string;
+        
+        var routers = [
+            new WebRoute(
+                path = [
+                    "/",
+                    "/home"
+                ],
+                rq = new WebRequest(),
+                index = _homeController().homeIndex
+            ),
+            new WebRoute(
+                path = ["test"],
+                rq = new WebRequest(),
+                index = _homeController().testIndex
+            ),
+        ];
+
+        
+        for(var i = 1; i <= arrayLen(routers); i++) {
+            for(var j = 1; j <= arrayLen(routers[i].path); j++) {
+                if(comparePath(path, routers[i].path[j])) {
+                    return routers[i];
+                }
+            }
+        }
+        
+        Throw "No route found for path: " & path;
+    }
+
+    function _homeController() {
+        return new HomeController();
+    }
+
+    boolean function comparePath(required string path1, required string path2) {
+        path1 = path1.trim();
+        path2 = path2.trim();
+        path1 = ListFirst(path1, "?");
+        path2 = ListFirst(path2, "?");
+
+        if(len(path1) && path1[1] == '/') {
+            path1 = Right(path1 , -1);
+        }
+        if(len(path2) && path2[1] == '/') {
+            path2 = Right(path2 , -1);
+        }
+        if(len(path1) && path1[len(path1)] == '/') {
+            path1 = Left(path1, - 1);
+        }
+        if(len(path2) && path2[len(path2)] == '/') {
+            path2 = Left(path2, - 1);
+        }
+
+        uri1 = CreateObject("java", "java.net.URI").init(path1);
+        uri2 = CreateObject("java", "java.net.URI").init(path2);
+
+
+        return uri2.getPath() == uri1.getPath();
+    }
+}

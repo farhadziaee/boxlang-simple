@@ -1,0 +1,15 @@
+import classes.core.*;
+
+class {
+    property name="rq" ;
+    property name="path" default="/";
+    property name="index";
+
+    function runIndex(WebRequest rq) {
+        if(this.index == null) {
+            return "No index function defined";
+        }
+        
+        return index(rq);
+    }
+}

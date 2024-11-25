@@ -1,0 +1,61 @@
+import classes.Uri;
+
+class {
+    _router = new app.router();
+    params = {};
+
+    function init() {}
+
+    function routing() {
+        var route = _router.route();
+        return route.runIndex(this);
+    }
+
+    function renderView(string path) {
+        include(expandPath('app/views/' & path));
+        return finish();
+    }
+
+    function finish(){
+        abort;
+    }
+
+    function addParam(required string key, required string value) {
+        params[key] = value;
+        return this;
+    }
+
+    function addParams(required struct data) {
+        structAppend(params, arguments.data);
+        return this;
+    }
+
+    function getParam(required string key, string default){
+        params[key] ? params[key] : default;
+        return this;
+    }
+
+    function removeParam(required string key) {
+        structDelete(params, key);
+        return this;
+    }
+
+    struct function getAllData() {
+        var _uri = new Uri(CGI.query_string);
+        
+        var res = {
+            form = isStruct(form) ? form : {},
+            query = _uri.getData(),
+        };
+
+        structAppend(res, res.query);
+        structAppend(res, res.form);
+
+        return res;
+    }
+
+    any function getData(required string key, any default = null) {
+        var data = this.getAllData();
+        return data[key] ?: default;
+    }
+}

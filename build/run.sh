@@ -74,4 +74,4 @@ if [[ $DEBUG == true ]]; then
 fi
 
 # Run our server
-boxlang-miniserver --host 0.0.0.0 --port 8080
+boxlang-miniserver --host 0.0.0.0 --port 8080 --debug true --serverHome $BOXLANG_HOME --webroot /app

@@ -1,0 +1,32 @@
+class {
+    function init(string path) {
+        this.uri = CreateObject("java", "java.net.URI").init(path);
+    }
+
+    function getData() {
+        return parseQueryParams(this.uri.getQuery());
+    }
+
+    function parseQueryParams(required string url) {
+        if(arguments.url == null || len(Trim(arguments.url)) == 0) {
+            return {};
+        }
+        
+        queryParams = structNew();
+        queryStart =  Find("?", arguments.url);
+        if (queryStart > 0) {
+            queryString = Mid(arguments.url, queryStart + 1);
+        } else{
+            queryString = arguments.url;
+        }
+
+        queryPairs = ListToArray(queryString, "&");
+        for (pair in queryPairs) {
+            keyValue = ListToArray(pair, "=");
+            if (arrayLen(keyValue) == 2) {
+                queryParams[keyValue[1]] = keyValue[2];
+            }
+        }
+        return queryParams;
+    }
+}

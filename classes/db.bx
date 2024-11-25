@@ -1,9 +1,15 @@
 class {
-    query function select(sql) {
-        return queryExecute(sql);
+    query function select(sql, params = {}, options = {}) {
+        return queryExecute(sql, params, options);
     }
 
-    function insert(sql) {
-        queryExecute(sql);
+    function insert(sql, params = {}, options = {}) {
+        queryExecute(sql, params, options);
     }
+
+    function delete(sql, params = {}, options = {}) {
+        queryExecute(sql, params, options);
+    }
+
+    
 } 

@@ -1,0 +1,52 @@
+import classes.*;
+
+class {
+    function homeIndex(WebRequest rq) {
+        db = new db();
+        action = rq.getData("action", "");
+
+        if (action == "delete") {
+            var id = rq.getData("id", -1);
+            db.delete("DELETE FROM users WHERE id = #id#");
+        }
+
+        if (action == "add") {
+            db.insert(
+                sql = "INSERT INTO users (name, age) VALUES (:name, :age)", 
+                params =  {
+                    name: {
+                        value: rq.getData("name", ""),
+                        type: "varchar"
+                    },
+                    age: {
+                        value: rq.getData("age", -1),
+                        type: "int"
+                    }
+                },
+                options = {
+                    dbtype: 'query'
+                }
+            );
+        }
+
+        var users = db.select("SELECT * FROM users");
+
+
+        rq.addParams({
+            name = "John",
+            age = 30,
+            users = users
+        });
+        
+        return rq.renderView('home/home.bxm');
+    }
+
+    function testIndex(WebRequest rq) {
+        rq.addParams({
+            name = "TEST TEST TEST",
+            age = 30
+        });
+        
+        return rq.renderView('home/test.bxm');
+    }
+}

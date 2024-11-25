@@ -1,0 +1,4 @@
+<bx:script>
+rq = new classes.core.WebRequest();
+</bx:script>
+<bx:output>#rq.routing()#</bx:output>

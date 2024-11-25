@@ -12,7 +12,7 @@ LABEL repository "https://github.com/ortus-boxlang/docker-boxlang"
 ENV LANG C.UTF-8
 
 # Since alpine runs as a single user, we need to create a "root" direcotry
-ENV HOME /root
+ENV HOME /app/.boxlang
 
 # Alpine workgroup is root group
 ENV WORKGROUP root
