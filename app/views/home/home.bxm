@@ -12,16 +12,16 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="##">Brand</a>
+            <a class="navbar-brand" href="##">BOXLANG</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="##navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="##">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="##features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="##WebSocket">WebSocket</a></li>
+                    <li class="nav-item"><a class="nav-link" href="##API">API</a></li>
+                    <li class="nav-item"><a class="nav-link" href="##MySql">MySql</a></li>
                     <li class="nav-item"><a class="nav-link" href="##about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="##contact">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -32,34 +32,39 @@
         <div class="container">
             <h1>Welcome to Boxlang</h1>
             <p class="lead">Build responsive websites with ease</p>
-            <a href="##features" class="btn btn-light btn-lg">Get Started</a>
         </div>
     </header>
 
-    <section class="pt-5">
+    <section id="WebSocket" class="pt-5">
         <div class="container">
-            <div class="card">
+            <div class="">
                 <div class="card-header">
                     <h3>WebSocket & Stream</h3>
                 </div>
-                <div class="card-body">
-                    <button id="btn-socket-stream" class="col-auto btn-sm btn btn-success disable-wave">
+                <div class="card-body text-center">
+                    <button id="btn-socket-stream" class="col-auto btn-lg btn btn-danger disable-wave">
                       Start streaming
                     </button>
                 </div>
                 <div id="socket-stream-panel" class="card-body d-none">
                     <div class="row">
-                        <video class="col-6" id="localVideo" autoplay muted></video>
-                        <video class="col-6" id="serverVideo" controls></video>
+                        <div class="col-12 col-lg-6">
+                            <h4 class="text-center"><span class="bg-danger badge text-center">Local Video</span></h4>
+                            <video class="rounded border-success w-100" id="localVideo" autoplay muted></video>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <h4 class="text-center"><span class="bg-success badge text-center">Server Video</span></h4>
+                            <video class="rounded border-success w-100" id="serverVideo" controls></video>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="pt-5">
-        <div class="container">
-            <h3>API</h3>
+    <section id="API" class="pt-5">
+        <div class="container border-top">
+            <h3 class="mt-5">API</h3>
             <ul>
                 <li><b>List of users:</b> <i>[GET]</i> /api/users</li>
                 <li><b>Add new user:</b> <i>[POST]</i> /api/users</li>
@@ -70,9 +75,10 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-5">
-        <div class="container">
-            <div class="row">
+    <section id="MySql" class="pt-5">
+        <div class="container border-top">
+            <h3 class="mt-5">MySql</h3>
+            <div class="row py-1">
                 <bx:loop query="params.users">
                     <div class="col-md-4 my-3">
                         <div class="card">
@@ -91,24 +97,24 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="bg-light py-5">
+    <section id="about" class=" py-5">
         <!-- Form to Submit New Record -->
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-header text-center bg-primary text-white">
-                        Add New Record
+        <div class="container">
+            <div class="col-12">
+                <div class="card bg-light">
+                    <div class="card-header text-center">
+                        Add New Record to Database
                     </div>
                     <div class="card-body">
                         <form action="/" method="POST">
                             <input type="hidden" name="action" value="add">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" value="0" class="form-control" id="name" name="name" placeholder="Enter name" required>
+                                <input type="text" value="John Doe" class="form-control" id="name" name="name" placeholder="Enter name" required>
                             </div>
                             <div class="mb-3">
                                 <label for="age" class="form-label">Age</label>
-                                <input type="number" value="0" class="form-control" id="age" name="age" placeholder="Enter age" required>
+                                <input type="number" value="38" class="form-control" id="age" name="age" placeholder="Enter age" required>
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -117,15 +123,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-5">
-        <div class="container text-center">
-            <h2>Contact Us</h2>
-            <p class="lead">Get in touch with us for your next project.</p>
-            <a href="mailto:info@example.com" class="btn btn-primary">Email Us</a>
         </div>
     </section>
 

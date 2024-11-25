@@ -4,9 +4,6 @@ ARG IMAGE_VERSION
 ARG BOXLANG_VERSION
 
 LABEL version ${IMAGE_VERSION}
-LABEL maintainer "Jon Clausen <jclausen@ortussolutions.com>"
-LABEL maintainer "Luis Majano <lmajano@ortussolutions.com>"
-LABEL repository "https://github.com/ortus-boxlang/docker-boxlang"
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
