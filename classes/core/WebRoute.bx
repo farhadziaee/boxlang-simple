@@ -4,6 +4,7 @@ class {
     property name="rq" ;
     property name="path" default="/";
     property name="index";
+    property name="methods" default="GET,POST,PUT,DELETE,OPTIONS,HEAD";
 
     function runIndex(WebRequest rq) {
         if(this.index == null) {
@@ -11,5 +12,9 @@ class {
         }
         
         return index(rq);
+    }
+
+    boolean function checkAllowMethod(required string method) {
+        return ListFindNoCase(this.methods, method);
     }
 }

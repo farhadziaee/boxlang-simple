@@ -3,13 +3,30 @@ class {
         return queryExecute(sql, params, options);
     }
 
-    function insert(sql, params = {}, options = {}) {
-        queryExecute(sql, params, options);
+    any function insert(sql, params = {}, options = {}) {
+        queryExecute("#sql#", params, options);
+        var res = queryExecute("SELECT LAST_INSERT_ID() AS id", {}, options);
+        return res;
     }
 
     function delete(sql, params = {}, options = {}) {
         queryExecute(sql, params, options);
     }
 
-    
+    boolean function existId(
+        required string table,
+        required id, 
+        string idKey = 'id'
+    ) {
+        var res = queryExecute(
+            "SELECT * FROM `#table#` WHERE `#idKey#` = :id", 
+            {
+                id: {
+                    value: id, 
+                    type: "int"
+                },
+            },
+        );
+        return res.recordCount > 0;
+    }
 } 

@@ -3,8 +3,10 @@ import app.controllers.HomeController;
 
 class {
     property name="rq" type="WebRequest";
-
-    function init() {}
+    
+    function init(required WebRequest rq) {
+        this.rq = arguments.rq;
+    }
 
     function route(){
         var path = CGI.query_string;
@@ -15,26 +17,52 @@ class {
                     "/",
                     "/home"
                 ],
-                rq = new WebRequest(),
+                rq = this.rq,
                 index = _homeController().homeIndex
             ),
             new WebRoute(
                 path = ["test"],
-                rq = new WebRequest(),
+                rq = this.rq,
                 index = _homeController().testIndex
+            ),
+            new WebRoute(
+                path = ["/api/users"],
+                rq = this.rq,
+                index = _homeController().apiUsers,
+                methods = "GET"
+            ),
+            new WebRoute(
+                path = ["/api/users"],
+                rq = this.rq,
+                index = _homeController().apiAddUsers,
+                methods = "POST"
+            ),
+            new WebRoute(
+                path = ["/api/users/{id}"],
+                rq = this.rq,
+                index = _homeController().apiGetUser,
+                methods = "GET"
+            ),
+            new WebRoute(
+                path = ["/api/users/{id}"],
+                rq = this.rq,
+                index = _homeController().apiDeleteUser,
+                methods = "DELETE"
             ),
         ];
 
-        
         for(var i = 1; i <= arrayLen(routers); i++) {
             for(var j = 1; j <= arrayLen(routers[i].path); j++) {
                 if(comparePath(path, routers[i].path[j])) {
-                    return routers[i];
+                    var res = routers[i];
+                    if(res.checkAllowMethod(CGI.request_method)) {
+                        return res;
+                    }
                 }
             }
         }
         
-        Throw "No route found for path: " & path;
+        Throw "No route found for path: [# CGI.request_method #] # path #";
     }
 
     function _homeController() {
@@ -46,6 +74,28 @@ class {
         path2 = path2.trim();
         path1 = ListFirst(path1, "?");
         path2 = ListFirst(path2, "?");
+        
+        if(Find("{",path2) > 0 && Find("}",path2) > 0) {
+            var path1Arr = ListToArray(path1, "/");
+            var path2Arr = ListToArray(path2, "/");
+
+            if(arrayLen(path1Arr) != arrayLen(path2Arr)) {
+                return false;
+            } else {
+                for(var i = 1; i <= arrayLen(path1Arr); i++) {
+                    if(find("{",path2Arr[i]) > 0 && find("}",path2Arr[i]) > 0) {
+                        var params = {};
+                        var key = path2Arr[i].replace("{","").replace("}","");
+                        params[key] = path1Arr[i];
+                        this.rq.addParams(params);
+                        path2Arr[i] = path1Arr[i];
+                    }
+                }
+            }
+
+            path2 = ArrayToList(path2Arr, "/");
+            path1 = ArrayToList(path1Arr, "/");
+        }
 
         if(len(path1) && path1[1] == '/') {
             path1 = Right(path1 , -1);

@@ -49,4 +49,96 @@ class {
         
         return rq.renderView('home/test.bxm');
     }
+
+    function apiUsers(WebRequest rq) {
+        db = new db();
+        var users = db.select("SELECT * FROM users");
+
+        return rq.renderJson({
+            users = users,
+        });
+    }
+
+    function apiAddUsers(WebRequest rq) {
+        db = new db();
+
+        if(!rq.hasData("name") || !rq.hasData('age')) {
+            return rq.renderJson(
+                data = {},
+                message = "Name and age are required", 
+                statusCode = 502
+            );
+        }
+        
+        var res = db.insert(
+            sql = "INSERT INTO users (name, age) VALUES (:name, :age)", 
+            params =  {
+                name: {
+                    value: rq.getData("name", ""),
+                    type: "varchar"
+                },
+                age: {
+                    value: rq.getData("age", -1),
+                    type: "int"
+                }
+            }
+        );
+
+        return rq.renderJson({
+            message = "User added successfully",
+            id = res.id
+        });
+    }
+
+    function apiGetUser(WebRequest rq) {
+        db = new db();
+        var id = rq.getParam(key = "id", default = "");
+        
+        if(id == -1 || isNumeric(id) == false) {
+            return rq.renderJson(
+                data = {},
+                message = "ID is required", 
+                statusCode = 502
+            );
+        }
+
+        var user = db.select("SELECT * FROM users WHERE id = :id", {id: {value: id, type: "int"}});
+        if(len(user) == 0) {
+            return rq.renderJson(
+                data = {},
+                message = "User not found", 
+                statusCode = 404
+            );
+        }
+        
+        return rq.renderJson({
+            user = user,
+        });
+    }
+
+    function apiDeleteUser(WebRequest rq) {
+        db = new db();
+        var id = rq.getParam(key = "id", default = "");
+        
+        if(id == -1 || isNumeric(id) == false) {
+            return rq.renderJson(
+                data = {},
+                message = "ID is required", 
+                statusCode = 502
+            );
+        }
+
+        if(db.existId("users", id) == false) {
+            return rq.renderJson(
+                data = {},
+                message = "User not found", 
+                statusCode = 404
+            );
+        }
+
+        db.delete("DELETE FROM users WHERE id = :id", {id: {value: id, type: "int"}});
+        return rq.renderJson({
+            message = "User #id# deleted successfully",
+        });
+    }
 }

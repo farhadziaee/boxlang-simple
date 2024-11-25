@@ -10,5 +10,5 @@
     "boxlang.java.javaHome": "/usr/bin/java",
     "cfml.boxlang.jarpath": "/var/www/boxlang/boxlang-docker/boxlang.jar",
     "cfml.boxlang.miniserverjarpath": "/var/www/boxlang/boxlang-docker/boxlang-miniserver.jar",
-    "cfml.boxlang.webPort": 8899
+    "cfml.boxlang.webPort": 8888
 }

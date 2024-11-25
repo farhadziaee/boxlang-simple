@@ -36,8 +36,8 @@ WORKDIR $APP_DIR
 ENV BUILD_DIR $LIB_DIR/build
 WORKDIR $BUILD_DIR
 
-# COMMANDBOX_HOME = Where CommmandBox Lives
-# ENV COMMANDBOX_HOME=$LIB_DIR/CommandBox
+#COMMANDBOX_HOME = Where CommmandBox Lives
+ENV COMMANDBOX_HOME=$LIB_DIR/CommandBox
 
 # Copy file system
 COPY ./ ${APP_DIR}/
@@ -51,7 +51,7 @@ RUN source $BUILD_DIR/util/alpine/install-dependencies.sh
 RUN $BUILD_DIR/util/install-bx.sh
 
 # ENV
-ENV DEBUG false
+ENV DEBUG true
 ENV HOST 0.0.0.0
 ENV PORT 8080
 ENV SSL_PORT 8443
@@ -65,7 +65,8 @@ ENV HEALTHCHECK_URI "http://127.0.0.1:${PORT}/"
 # Our healthcheck interval doesn't allow dynamic intervals - Default is 20s intervals with 15 retries
 HEALTHCHECK --interval=20s --timeout=30s --retries=15 CMD curl --fail ${HEALTHCHECK_URI} || exit 1
 
-EXPOSE ${PORT} ${SSL_PORT}
+EXPOSE ${PORT} ${SSL_PORT} 8888
+
 
 WORKDIR $APP_DIR
 

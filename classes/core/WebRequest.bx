@@ -1,7 +1,7 @@
 import classes.Uri;
 
 class {
-    _router = new app.router();
+    _router = new app.router(rq = this);
     params = {};
 
     function init() {}
@@ -14,6 +14,25 @@ class {
     function renderView(string path) {
         include(expandPath('app/views/' & path));
         return finish();
+    }
+
+    function renderJson(
+        required struct data,
+        string message = "success",
+        number statusCode = 200
+    ) {
+        getPageContext()
+        .setStatus( JavaCast( 'int', arguments.statusCode ), arguments.message );
+
+        if(StructKeyExists(data, "message") == false ) {
+            data.message = arguments.message;
+        }
+
+        if(StructKeyExists(data, "timestamp") == false) {
+            data.timestamp = now().getTime();
+        }
+
+        return jsonSerialize(data);
     }
 
     function finish(){
@@ -30,9 +49,13 @@ class {
         return this;
     }
 
-    function getParam(required string key, string default){
-        params[key] ? params[key] : default;
-        return this;
+    function getParam(required string key, any default){
+        var res = params[key] ?: default;
+        return res;
+    }
+
+    function getParams() {
+        return params;
     }
 
     function removeParam(required string key) {
@@ -57,5 +80,10 @@ class {
     any function getData(required string key, any default = null) {
         var data = this.getAllData();
         return data[key] ?: default;
+    }
+
+    boolean function hasData(required string key) {
+        var data = this.getAllData();
+        return StructKeyExists(data, key);
     }
 }

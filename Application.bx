@@ -5,55 +5,55 @@ class Application {
 		"driver": "mysql",
 		"host": "mysql",
 		"port": "3306",
-		"database": "toomba",
+		"database": "boxlang",
 		"username": "root",
-		"password": "toomba",
+		"password": "boxlang",
 		"minConnections" : "11",
 		"maxConnections" : 100
 	};
 
     this.datasource = "mysql";
 
-    function onApplicationStart() {
-        systemOutput(obj="[TOOMBA #now()#]: Application started #jsonSerialize(arguments)#" ,addNewLine=true);
-    }
+    // function onApplicationStart() {
+    //     systemOutput(obj="[BOXLANG #now()#]: Application started #jsonSerialize(arguments)#" ,addNewLine=true);
+    // }
     
-    function onApplicationEnd( struct applicationScope ) {
-        systemOutput(obj="[TOOMBA #now()#]: Application ended #jsonSerialize(arguments)#" ,addNewLine=true);
-    }
+    // function onApplicationEnd( struct applicationScope ) {
+    //     systemOutput(obj="[BOXLANG #now()#]: Application ended #jsonSerialize(arguments)#" ,addNewLine=true);
+    // }
 
-    function onSessionStart() {
-        systemOutput(obj="[TOOMBA #now()#]: Session started #jsonSerialize(arguments)#" ,addNewLine=true);
-    }
-    function onSessionEnd( struct sessionScope, struct applicationScope ) {
-        systemOutput(obj="[TOOMBA #now()#]: Session ended:  #jsonSerialize(arguments)#" ,addNewLine=true);
-    }
+    // function onSessionStart() {
+    //     systemOutput(obj="[BOXLANG #now()#]: Session started #jsonSerialize(arguments)#" ,addNewLine=true);
+    // }
+    // function onSessionEnd( struct sessionScope, struct applicationScope ) {
+    //     systemOutput(obj="[BOXLANG #now()#]: Session ended:  #jsonSerialize(arguments)#" ,addNewLine=true);
+    // }
 
-    function onRequestStart( string targetPage ) {
-        request.application = server;
-        systemOutput(obj="[TOOMBA #now()#]: Request started: #jsonSerialize(arguments)#" ,addNewLine=true);
-    }
+    // function onRequestStart( string targetPage ) {
+    //     request.application = server;
+    //     systemOutput(obj="[BOXLANG #now()#]: Request started: #jsonSerialize(arguments)#" ,addNewLine=true);
+    // }
     
-    function onRequestEnd() {
-        systemOutput(obj="[TOOMBA #now()#]: Request ended" ,addNewLine=true);
-    }
-    function onClassRequest( className, method, struct args) {
-        systemOutput(obj="[TOOMBA #now()#]: Class Requested #jsonSerialize(arguments)#" ,addNewLine=true);
-    }
+    // function onRequestEnd() {
+    //     systemOutput(obj="[BOXLANG #now()#]: Request ended" ,addNewLine=true);
+    // }
+    // function onClassRequest( className, method, struct args) {
+    //     systemOutput(obj="[BOXLANG #now()#]: Class Requested #jsonSerialize(arguments)#" ,addNewLine=true);
+    // }
 
     // function onError( any Exception, string EventName ) {
-    //     systemOutput(obj="[TOOMBA #now()#]: Error  #jsonSerialize(arguments)#" ,addNewLine=true);
+    //     systemOutput(obj="[BOXLANG #now()#]: Error  #jsonSerialize(arguments)#" ,addNewLine=true);
     //     return application.onError(arguments);
     // }
-    function onAbort( required string targetPage ) {
-        systemOutput(obj="[TOOMBA #now()#]: Abort" ,addNewLine=true);
-    }
-    function onMissingTemplate( required string targetPage ) {
-        systemOutput(obj="[TOOMBA #now()#]: Missing Template  #jsonSerialize(arguments)#" ,addNewLine=true);
-    }
+    // function onAbort( required string targetPage ) {
+    //     systemOutput(obj="[BOXLANG #now()#]: Abort" ,addNewLine=true);
+    // }
+    // function onMissingTemplate( required string targetPage ) {
+    //     systemOutput(obj="[BOXLANG #now()#]: Missing Template  #jsonSerialize(arguments)#" ,addNewLine=true);
+    // }
     
     // function _log(any obj, int type = this.LogType.INFO) {
-    //     systemOutput(obj="[TOOMBA #now()#]: #jsonSerialize(obj)#" ,addNewLine=true);
+    //     systemOutput(obj="[BOXLANG #now()#]: #jsonSerialize(obj)#" ,addNewLine=true);
     // }
 
     // LogType = {
