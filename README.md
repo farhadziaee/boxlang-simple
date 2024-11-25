@@ -5,7 +5,6 @@
 docker compose up --build
 ```
 * URL: [http://localhost:8181](http://localhost:8181)
-* Demo: [https://boxlang.uproid.com](https://boxlang.uproid.com)
 
 ### Nginx
 * Check this file `./nginx.conf`
