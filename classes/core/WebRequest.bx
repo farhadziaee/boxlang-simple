@@ -5,6 +5,9 @@ class WebRequest {
         initializedLanguages = false;
         i18n = {};
     }
+
+    variables.system = CreateObject("java", "java.lang.System");
+    variables.reinitPassword = system.getenv("BOXLANG_REINIT_PASSWORD");
  
     _router = new app.router(rq = this);
     params = {
@@ -12,7 +15,8 @@ class WebRequest {
     };
 
     function init() {
-        if(!WebRequest::initializedLanguages) {
+        var reinit = this.getData('reinit', '') == reinitPassword;
+        if(!WebRequest::initializedLanguages || reinit) {
             this.initializeLanguages();
         }
 

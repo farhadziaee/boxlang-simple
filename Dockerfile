@@ -7,7 +7,7 @@ LABEL version ${IMAGE_VERSION}
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
-
+ENV BOXLANG_REINIT_PASSWORD=test
 # Since alpine runs as a single user, we need to create a "root" direcotry
 ENV HOME /app/.boxlang
 

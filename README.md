@@ -22,5 +22,11 @@ docker compose up --build
 * `./classes/core/WebRequest.bx`
 * `./classes/core/WebRoute.bx`
 * `./app/router.bx`
+
+### i18n internationalization
+* `./i18n/*.json`
+* To reload translations open this link: `/?reinit=test`
+* `test` is `BOXLANG_REINIT_PASSWORD`, an envirment variable
+
   
 Made with ♥️ Farhad Ziaee 

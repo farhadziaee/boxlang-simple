@@ -53,7 +53,7 @@
                 </div>
                 <div class="card-body text-center">
                     <button id="btn-socket-stream" class="col-auto btn-lg btn btn-danger disable-wave">
-                      Start streaming
+                      # $t("home.stream.start") #
                     </button>
                 </div>
                 <div id="socket-stream-panel" class="card-body d-none">
