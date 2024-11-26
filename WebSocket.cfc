@@ -54,27 +54,42 @@ component extends="packages.websocket.WebSocketCore" {
         );
     }
 
-    function onClose( ) {
-        this.broadcastMessage({
-            "message": "Hi! an user is connected",
-            "path": 'close'
-        });
+    function onClose() {
+        this.sendBroadcast(
+            data = {
+                "message": "Hi! an user is connected",
+            },
+            path = 'close'
+        );
     }
 
     function send(any data, string path, required channel) {
-        var res = {
-            'data': arguments.data,
-            'path': arguments.path
-        }
-        this.sendMessage(jsonSerialize(res), channel);
+        var data = arguments.data;
+        var channel = arguments.channel;
+        var path = arguments.path;
+
+        runAsync(function() {
+            this.isFirst = false;
+
+            var res = {
+                'data': data,
+                'path': path
+            }
+            this.sendMessage(jsonSerialize(res), channel);
+        });
     }
 
     function sendBroadcast(any data, string path) {
-        var res = {
-            'data': arguments.data,
-            'path': arguments.path
-        }
-        this.broadcastMessage(jsonSerialize(datresa));
+        var data = arguments.data;
+        var path = arguments.path;
+
+        runAsync(function() {
+            var res = {
+                'data': data,
+                'path': path
+            }
+            this.broadcastMessage(jsonSerialize(res));
+        });
     }
 }
     

@@ -1,12 +1,12 @@
 const videoElement = document.getElementById('serverVideo');
-
+var mimeType = getMimeType();
 let sourceBuffer;
 
 const mediaSource = new MediaSource();
 videoElement.src = URL.createObjectURL(mediaSource);
 
 mediaSource.addEventListener('sourceopen', function () {
-    sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="opus,vp8"');
+    sourceBuffer = mediaSource.addSourceBuffer(mimeType);
     sourceBuffer.addEventListener('updateend', function () {
         if (videoElement.paused) {
             videoElement.play();
@@ -90,7 +90,7 @@ document.getElementById('btn-socket-stream')?.addEventListener('click', function
             });
 
             mediaRecorder = new MediaRecorder(stream, {
-                mimeType: `video/webm; codecs="opus,vp8"`,
+                mimeType: mimeType,
                 videoBitsPerSecond: 2_500_000, // 2.5 Mbps for video will be OK
                 audioBitsPerSecond: 128_000    // 128 kbps for audio will be OK
             });
@@ -100,9 +100,7 @@ document.getElementById('btn-socket-stream')?.addEventListener('click', function
                     event.data.arrayBuffer().then((data) => {
                         var toB64 = (buffer) => {
                             const byteArray = new Uint8Array(buffer);
-                            var res = [];
-                            byteArray.forEach((node) => res.push(node));
-                            return res;
+                            return Array.from(byteArray);;
                         }
                         socket.send(JSON.stringify({
                             path: 'stream',
@@ -115,3 +113,27 @@ document.getElementById('btn-socket-stream')?.addEventListener('click', function
         })
         .catch((error) => console.error('Error accessing media devices:', error));
 });
+
+function getMimeType() {
+    var mimeCodecs = [
+        // Best performance and widely supported
+        'video/mp4; codecs="avc1.42E01E,mp4a.40.2"', // MP4 (H.264, AAC) - Best for compatibility
+        'video/webm; codecs="vp9,opus"',             // WebM (VP9, Opus) - Great support in Chrome, Firefox
+        'video/webm; codecs="vp8,opus"',             // WebM (VP8, Opus) - Supported in older browsers
+    
+        // Additional options with good support in most browsers
+        'video/ogg; codecs="theora,vorbis"',         // Ogg Theora (older support, primarily Firefox)
+        'video/mp4; codecs="avc1.640028,mp4a.40.2"', // MP4 (H.264 High Profile)
+        
+        // Emerging support (best for specific use cases)
+        'video/avi; codecs="MPEG4,mp3"',             // AVI (MPEG-4, MP3) - Less common, but still used
+        'video/quicktime; codecs="H.264,mp3"',       // QuickTime (H.264, MP3) - Used in Apple devices
+    ];
+
+    for (var i = 0; i < mimeCodecs.length; i++) {
+        if (MediaRecorder.isTypeSupported(mimeCodecs[i])) {
+            console.log('Using codec:', mimeCodecs[i]);
+            return mimeCodecs[i];
+        }
+    }
+}
