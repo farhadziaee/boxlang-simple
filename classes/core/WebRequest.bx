@@ -1,10 +1,82 @@
 import classes.Uri;
 
-class {
+class WebRequest {
+    static {
+        initializedLanguages = false;
+        i18n = {};
+    }
+ 
     _router = new app.router(rq = this);
-    params = {};
+    params = {
+        rq: this,
+    };
 
-    function init() {}
+    function init() {
+        if(!WebRequest::initializedLanguages) {
+            this.initializeLanguages();
+        }
+
+        initLocale();
+    }
+
+    function initLocale() {
+        var ln = this.getCookie("language", "en");
+        var exist = StructKeyExists(WebRequest::i18n, ln);
+        if(exist) {
+            setLocale(locale=ln);
+        } else {
+            setLocale(locale="en");
+        }
+    }
+
+    function initializeLanguages() {
+        var files = this.getAllFiles('i18n');
+        
+        var res = {};
+        
+        for(var file in files) {
+            var langCode = listFirst(getFileFromPath(file), '.');
+            var languages = this.readFile(file);
+            res[langCode] = languages;
+        }
+
+        static.i18n = res;
+        static.initializedLanguages = true;
+    }
+
+    function getAllFiles(string path) {
+        var files = DirectoryList(expandPath(path));
+        return files;
+    }
+
+    function readFile(string path, string type = "json") {
+        var file = FileOpen(expandPath(path));
+        var content = "";
+
+        while(!FileIsEOF(file)) {
+            content &= FileReadLine(file);
+        }
+
+        if(type == "json") {
+            return jsonDeserialize(content);
+        }
+
+        return content;
+    }
+
+    function getLanguages() {
+        var keys = structKeyArray(WebRequest::i18n);
+        var res = [];
+        for(var key in keys) {
+            var info = getLocaleInfo(key);
+            res.append(info);
+        }
+        return res;
+    }
+
+    function getLanguage() {
+        return getLocaleInfo();
+    }
 
     function routing() {
         var route = _router.route();
@@ -85,5 +157,42 @@ class {
     boolean function hasData(required string key) {
         var data = this.getAllData();
         return StructKeyExists(data, key);
+    }
+
+    function setCookie(required string name, required string value, string path = '/') {
+        getPageContext()
+        .setHeader( 
+            JavaCast( 'string', 'Set-Cookie' ), 
+            JavaCast( 'string', "#name#=#value#;Path=#path#" ) 
+        )
+    }
+
+    function getCookie(required string name, any default = null) {
+        return cookie[name] ?: default;
+    }
+
+    function redirect(required string path, int statusCode = 302) {
+        getPageContext()
+        .setHeader( JavaCast( 'string', 'Location' ), JavaCast( 'string', path ) )
+        getPageContext()
+        .setStatus( JavaCast( 'int', statusCode ), "Redirect..." );
+        abort;
+    } 
+
+    /// Translate a key to the current language
+    string function tr(required string key) {
+        var lang = getLocaleInfo().language;
+        var langContent = WebRequest::i18n.get(lang) ?: WebRequest::i18n.get('en');
+        
+        if(langContent == null) {
+            return "Not Found #key#";
+        }
+        
+        var res = langContent[key] ?: "Not Found #key#";
+        return res;
+    }
+
+    string function $t(required string key) {
+        return this.tr(key);
     }
 }

@@ -1,6 +1,12 @@
 import classes.*;
 
 class {
+    function homeChangeLanguage(WebRequest rq) {
+        var lang = rq.getParam(key = "lang", default = "en");
+        rq.setCookie(name = "language", value = lang);
+        return rq.redirect("/");
+    }
+
     function homeIndex(WebRequest rq) {
         db = new db();
         action = rq.getData("action", "");

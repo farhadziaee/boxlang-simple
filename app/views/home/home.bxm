@@ -1,37 +1,47 @@
 <bx:output>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="# getLanguage().language #" dir="# $t('dir') #">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boxlang</title>
+    <title>#tr('home.logo')#</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap# $t('dir') == "rtl" ? ".rtl":"" #.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="##">BOXLANG</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="##navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <a class="navbar-brand text-white" href="##"># $t('home.logo') #</a>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  #getLanguage().display.language#
+                </button>
+                <ul class="dropdown-menu">
+                  <bx:loop array="#getLanguages()#" item="lang">
+                    <li><a href="/ln/#lang.language#" class="dropdown-item" type="button">#lang.display.language#</a></li>
+                  </bx:loop>
+                </ul>
+            </div>
+            <button class="bg-white navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="##navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class=" navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="##WebSocket">WebSocket</a></li>
-                    <li class="nav-item"><a class="nav-link" href="##API">API</a></li>
-                    <li class="nav-item"><a class="nav-link" href="##MySql">MySql</a></li>
-                    <li class="nav-item"><a class="nav-link" href="##about">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-white active" href="##WebSocket">WebSocket</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="##API">API</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="##MySql">MySql</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="##about">About</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="bg-primary text-white text-center py-5">
+    <header class="bg-light text-center py-5">
         <div class="container">
-            <h1>Welcome to Boxlang</h1>
-            <p class="lead">Build responsive websites with ease</p>
+            <h1># tr('home.title') #</h1>
+            <p class="lead"># $t('home.subtitle') #</p>
         </div>
     </header>
 

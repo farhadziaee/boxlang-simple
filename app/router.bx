@@ -21,6 +21,11 @@ class {
                 index = _homeController().homeIndex
             ),
             new WebRoute(
+                path = ["/ln/{lang}"],
+                rq = this.rq,
+                index = _homeController().homeChangeLanguage
+            ),
+            new WebRoute(
                 path = ["test"],
                 rq = this.rq,
                 index = _homeController().testIndex
