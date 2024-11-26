@@ -1,9 +1,9 @@
-component extends="packages.websocket.WebSocketCore" {
+class extends="packages.websocket.WebSocketCore" {
     function onMessage( required any message, required channel ) {
         var data = {};
         
         try{
-            data = isStruct(message) ? message : deserializeJson(message);
+            data = isStruct(message) ? message : jsonDeserialize(message);
         } catch (any e) {
             systemOutput(obj="Error parsing JSON: #e.message#", addNewline=true);
         }
