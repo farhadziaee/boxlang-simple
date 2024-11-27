@@ -32,7 +32,7 @@
 			/// You can bring your own settings by adding them here or copy them from ./vscode/settings.json
 			"settings": {
 				// For example you can set the color theme like this
-				"workbench.colorTheme": "Default Light Modern"	
+				"workbench.colorTheme": "Default Dark Modern"	
 			}
 		}
 	},
@@ -40,10 +40,6 @@
 	/// Add all ports that project use localy
 	/// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [3306,8181,8080],
-	"remoteEnv": {
-		"MYSQL_HOST": "database",
-		"MYSQL_PORT": "3306"
-	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
