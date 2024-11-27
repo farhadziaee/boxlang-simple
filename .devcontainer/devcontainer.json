@@ -44,7 +44,6 @@
 		"MYSQL_HOST": "mysql",
 		"MYSQL_PORT": "3306"
 	},
-	"runArgs": ["--network=dev_network"],
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
