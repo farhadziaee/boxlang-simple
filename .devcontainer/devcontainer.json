@@ -35,13 +35,18 @@
 				"workbench.colorTheme": "Default Light Modern"	
 			}
 		}
+	},
+
+	/// Add all ports that project use localy
+	/// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [3306,8181,8080],
+	"remoteEnv": {
+		"MYSQL_HOST": "mysql",
+		"MYSQL_PORT": "3306"
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
 
 	// Uncomment the next line if you want start specific services in your Docker Compose config.
 	// "runServices": [],
