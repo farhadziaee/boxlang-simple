@@ -11,6 +11,8 @@ services:
     volumes:
       - ./.db_data:/var/lib/mysql
       - ./.db_backup:/docker-entrypoint-initdb.d
+    networks:
+      - dev_network
 
   web:
     container_name: web
@@ -28,6 +30,8 @@ services:
       - BOXLANG_MODULES=bx-compat,bx-esapi,bx-mysql
     depends_on:
       - mysql
+    networks:
+      - dev_network
 
   nginx:
     container_name: nginx
@@ -39,3 +43,8 @@ services:
       - ./public:/www/public
     depends_on:
       - web
+    networks:
+      - dev_network
+networks:
+  dev_network:
+    driver: bridge
