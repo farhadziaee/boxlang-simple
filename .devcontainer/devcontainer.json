@@ -41,7 +41,7 @@
 	/// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [3306,8181,8080],
 	"remoteEnv": {
-		"MYSQL_HOST": "mysql",
+		"MYSQL_HOST": "database",
 		"MYSQL_PORT": "3306"
 	},
 
