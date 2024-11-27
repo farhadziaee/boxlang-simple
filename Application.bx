@@ -3,7 +3,7 @@ class Application {
     
     this.datasources["mysql"] = {
 		"driver": "mysql",
-		"host": "mysql",
+		"host": "database",
 		"port": "3306",
 		"database": "boxlang",
 		"username": "root",
