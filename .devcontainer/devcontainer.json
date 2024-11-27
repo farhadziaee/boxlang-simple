@@ -1,0 +1,52 @@
+{
+	// The name of the dev container. This will be shown when starting the container.
+	"name": "Boxlang Dev Container",
+	"dockerComposeFile": [
+		"../docker-compose.yaml"
+	],
+
+	// The service name of docker-compose that the container should use to open
+	"service": "web",
+
+	"workspaceFolder": "/app",
+	"customizations": {
+		"vscode": {
+			/// 
+			"extensions": [
+				"lokalise.i18n-ally",
+				"GitHub.copilot",
+				"KamasamaK.vscode-cfml",
+				"cfmleditor.cfmleditor",
+				"cfmleditor.cfmleditor-lint",
+				"dalucema.coldfusionsymbols",
+				"ortus-solutions.vscode-boxlang",
+				"cweijan.vscode-mysql-client2",
+				"GitLab.gitlab-workflow"
+			],
+			"settings": {
+				"workbench.colorTheme": "Default Light Modern"	
+			}
+		}
+	}
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Uncomment the next line if you want start specific services in your Docker Compose config.
+	// "runServices": [],
+
+	// Uncomment the next line if you want to keep your containers running after VS Code shuts down.
+	// "shutdownAction": "none",
+
+	// Uncomment the next line to run commands after the container is created.
+	// "postCreateCommand": "cat /etc/os-release",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "devcontainer"
+}

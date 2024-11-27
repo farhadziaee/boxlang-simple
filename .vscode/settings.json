@@ -1,4 +1,5 @@
 {
+    
     "cflint.enabled": true,
     "cflint.jarPath": "cflint/CFLint-1.5.0-all.jar",
     "cflint.altConfigFile.path": "cflint",
