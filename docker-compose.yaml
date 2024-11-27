@@ -1,5 +1,6 @@
 services:
   web:
+    container_name: web
     build: .
     ports:
       - "8080:8080"
@@ -14,6 +15,7 @@ services:
       - BOXLANG_MODULES=bx-compat,bx-esapi,bx-mysql
 
   mysql:
+    container_name: mysql
     platform: linux/x86_64 # Needed for Mac's on the M1 chip
     image: mysql:5
     environment:
@@ -26,6 +28,7 @@ services:
       - ./.db_backup:/docker-entrypoint-initdb.d
 
   nginx:
+    container_name: nginx
     image: nginx:alpine
     ports:
       - "8181:80"
