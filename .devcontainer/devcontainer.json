@@ -8,10 +8,14 @@
 	// The service name of docker-compose that the container should use to open
 	"service": "web",
 
+	// The path of the workspace folder inside the container.
+	// We have set it already to docker-compose.yaml or Dockerfile
+	// There are all main files for the project that developers need to work on.
 	"workspaceFolder": "/app",
 	"customizations": {
 		"vscode": {
-			/// 
+			// Add extensions to the container. The extensions will be installed in the container.
+			// you can bring your own extensions by adding them here or copy them from ./vscode/extensions.json
 			"extensions": [
 				"lokalise.i18n-ally",
 				"GitHub.copilot",
@@ -23,7 +27,11 @@
 				"cweijan.vscode-mysql-client2",
 				"GitLab.gitlab-workflow"
 			],
+			
+			/// Add settings to the container. The settings will be applied in the container.
+			/// You can bring your own settings by adding them here or copy them from ./vscode/settings.json
 			"settings": {
+				// For example you can set the color theme like this
 				"workbench.colorTheme": "Default Light Modern"	
 			}
 		}
