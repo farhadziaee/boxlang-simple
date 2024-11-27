@@ -28,6 +28,8 @@ services:
       - BOXLANG_HOST=0.0.0.0
       - BOXLANG_DEBUG=true
       - BOXLANG_MODULES=bx-compat,bx-esapi,bx-mysql
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
     depends_on:
       - mysql
     networks:
