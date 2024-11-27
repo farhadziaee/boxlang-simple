@@ -1,4 +1,17 @@
 services:
+  mysql:
+    container_name: mysql
+    platform: linux/x86_64 # Needed for Mac's on the M1 chip
+    image: mysql:5
+    environment:
+      MYSQL_DATABASE: boxlang
+      MYSQL_ROOT_PASSWORD: boxlang
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./.db_data:/var/lib/mysql
+      - ./.db_backup:/docker-entrypoint-initdb.d
+
   web:
     container_name: web
     build: .
@@ -13,19 +26,8 @@ services:
       - BOXLANG_HOST=0.0.0.0
       - BOXLANG_DEBUG=true
       - BOXLANG_MODULES=bx-compat,bx-esapi,bx-mysql
-
-  mysql:
-    container_name: mysql
-    platform: linux/x86_64 # Needed for Mac's on the M1 chip
-    image: mysql:5
-    environment:
-      MYSQL_DATABASE: boxlang
-      MYSQL_ROOT_PASSWORD: boxlang
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./.db_data:/var/lib/mysql
-      - ./.db_backup:/docker-entrypoint-initdb.d
+    depends_on:
+      - mysql
 
   nginx:
     container_name: nginx
@@ -37,7 +39,3 @@ services:
       - ./public:/www/public
     depends_on:
       - web
-      - mysql
-
-
-
